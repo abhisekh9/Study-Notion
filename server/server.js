@@ -5,7 +5,6 @@ import connectDB from './configs/mongodb.js';
 import { clerkWebhooks} from './controllers/webhooks.js';
 import educatorRouter from './routes/educatorRoutes.js';
 import { clerkMiddleware } from '@clerk/express';
-import connectCloudinay from './configs/cloudinary.js';
 import courseRouter from './routes/courseRoute.js';
 import userRouter from './routes/userRoutes.js';
 

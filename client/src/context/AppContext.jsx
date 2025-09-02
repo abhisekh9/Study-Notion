@@ -5,6 +5,8 @@ import humanizeDuration from "humanize-duration"
 import {useAuth, useUser} from '@clerk/clerk-react'
 import axios from 'axios'
 import {  toast } from 'react-toastify';
+
+
 export const AppContext = createContext()
 
 export const AppContextProvider = (props)=>{
@@ -18,25 +20,25 @@ export const AppContextProvider = (props)=>{
     const {user} = useUser()
 
     const [allCourses, setAllCourses] = useState([])
-    const [isEducator, setIsEducator] = useState(true)
+    const [isEducator, setIsEducator] = useState(false)
     const [enrolledCourses, setEnrolledCourses] = useState([])
     const [userData, setUserData] = useState(null)
 
     // fetch all courses 
     const fetchAllCourses = async ()=>{
-        // setAllCourses(dummyCourses)
-        try {
-            const {data} = await axios.get(backendUrl + '/api/course/all');
-            if(data.success)
-            {
-                setAllCourses(data.courses)
-            }else{
-                toast.error(data.message);
-            }
+        setAllCourses(dummyCourses)
+        // try {
+        //     const {data} = await axios.get(backendUrl + '/api/course/all');
+        //     if(data.success)
+        //     {
+        //         setAllCourses(data.courses)
+        //     }else{
+        //         toast.error(data.message);
+        //     }
             
-        } catch (error) {
-            toast.error(error.message)
-        }
+        // } catch (error) {
+        //     toast.error(error.message)
+        // }
     }
 
     // fetch user data
@@ -46,20 +48,20 @@ export const AppContextProvider = (props)=>{
             setIsEducator(true);
         }
 
-        try {
-            const token = await getToken();
+        // try {
+        //     const token = await getToken();
 
-            const {data} = await axios.get(backendUrl + '/api/user/data' , {headers: {Authorization: `Bearer ${token}`}})
+        //     const {data} = await axios.get(backendUrl + '/api/user/data' , {headers: {Authorization: `Bearer ${token}`}})
         
-            if(data.success){
-                setUserData(data.user)
-            }else{
-                toast.error(data.message)
-            }
+        //     if(data.success){
+        //         setUserData(data.user)
+        //     }else{
+        //         toast.error(data.message)
+        //     }
 
-        } catch (error) {
-            toast.error(error.message)
-        }
+        // } catch (error) {
+        //     toast.error(error.message)
+        // }
     }
 
     // Function to calculate average rating of course
@@ -104,46 +106,25 @@ export const AppContextProvider = (props)=>{
 
     // Fetch user enrolled courses
 
-    // const fetchUserEnrolledCourses = async()=>{
-    //     // setEnrolledCourses(dummyCourses)
-    //    try {
-    //     const token = await getToken();
-
-    //     const data = await axios.get(backendUrl + '/api/user/enrolled-courses', {headers: {Authorization: `Bearer ${token}`}})
-        
-    //     console.log("Data",data);
-    //     if(data){
-    //         setEnrolledCourses(data.enrolledCourses.reverse());
-    //         // console.log("enroll", enrolledCourses);
-    //         // console.log("setenroll", enrolledCourses);
-            
-    //     }else{
-    //         toast.error(data.message)
-    //     }
-    //    } catch (error) {
-    //     toast.error(error.message)
-    //    }
-    // }
-
-
     const fetchUserEnrolledCourses = async () => {
-        try {
-            const token = await getToken();
-            const response = await axios.get(backendUrl + "/api/user/enrolled-courses", {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+        setEnrolledCourses(dummyCourses)
+        // try {
+        //     const token = await getToken();
+        //     const response = await axios.get(backendUrl + "/api/user/enrolled-courses", {
+        //         headers: { Authorization: `Bearer ${token}` }
+        //     });
     
-            // console.log("Response:", response); // Debugging: Log full response
+        //     // console.log("Response:", response); // Debugging: Log full response
     
-            if (response.data && response.data.enrolledCourses) {
-                setEnrolledCourses(response.data.enrolledCourses.reverse());
-            } else {
-                toast.error(response.data?.message || "No enrolled courses found.");
-            }
-        } catch (error) {
-            console.error("Error fetching courses:", error);
-            toast.error(error.response?.data?.message || error.message);
-        }
+        //     if (response.data && response.data.enrolledCourses) {
+        //         setEnrolledCourses(response.data.enrolledCourses.reverse());
+        //     } else {
+        //         toast.error(response.data?.message || "No enrolled courses found.");
+        //     }
+        // } catch (error) {
+        //     console.error("Error fetching courses:", error);
+        //     toast.error(error.response?.data?.message || error.message);
+        // }
     };
     
     useEffect(()=>{
