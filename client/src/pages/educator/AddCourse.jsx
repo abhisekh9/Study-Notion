@@ -5,7 +5,7 @@ import { assets } from '../../assets/assets'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { AppContext } from '../../context/AppContext'
-import Logger from '../../components/Logger'
+// import Logger from '../../components/Logger'
 
 
 const AddCourse = () => {
@@ -108,12 +108,12 @@ const AddCourse = () => {
         return; // Prevent further execution
       }
   
-      // if (!chapters.length) {
-      //   toast.error("At least one chapter is required!");
-      //   return;
-      // }
+      if (!chapters.length) {
+        toast.error("At least one chapter is required!");
+        return;
+      }
   
-      // // Ensure each chapter has a chapter order
+      // Ensure each chapter has a chapter order
       // const updatedChapters = chapters.map((ch, index) => ({
       //   ...ch,
       //   chapterorder: ch.chapterorder || index + 1, // Auto-assign order if missing
@@ -173,9 +173,6 @@ const AddCourse = () => {
   return (
     <div className='h-screen overflow-scroll flex flex-col items-start justify-between md:p-8 md:pb-0 p-4 pt-8 pb-0'>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4 max-w-md w-full text-gray-500'>
-      <div className="block sm:hidden ">
-					<Logger/>
-			</div>
         <div className='flex flex-col gap-1'>
           <p>Course Title: </p>
           <input onChange={e => setCourseTitle(e.target.value)} value={courseTitle} type="text" placeholder='Type here' className='outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500' required />

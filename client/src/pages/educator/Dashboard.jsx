@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { assets, dummyDashboardData } from "../../assets/assets";
+import { assets} from "../../assets/assets";
 import Loading from "../../components/student/Loading";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Logger from "../../components/Logger";
+// import Logger from "../../components/Logger";
 
 const Dashboard = () => {
 
@@ -13,24 +13,24 @@ const Dashboard = () => {
 	const [dashboardData, setDashboardData] = useState(null);
 
 	const fetchDashboardData = async () => {
-		setDashboardData(dummyDashboardData);
-		// try {
-		// 	const token = await getToken();
+		// setDashboardData(dummyDashboardData);
+		try {
+			const token = await getToken();
 
-		// 	const {data} = await axios.get(backendUrl + '/api/educator/dashboard', { headers: { Authorization: `Bearer ${token}` } })
+			const {data} = await axios.get(backendUrl + '/api/educator/dashboard', { headers: { Authorization: `Bearer ${token}` } })
 
-		// 	// console.log("dashboard data", data.dashboardData);
+			// console.log("dashboard data", data.dashboardData);
 
 			
-		// 	if(data.success){
-		// 		setDashboardData(data.dashboardData)
-		// 	}
-		// 	else{
-		// 		toast.error(data.message)
-		// 	}
-		// } catch (error) {
-		// 	toast.error(error.message)
-		// }
+			if(data.success){
+				setDashboardData(data.dashboardData)
+			}
+			else{
+				toast.error(data.message)
+			}
+		} catch (error) {
+			toast.error(error.message)
+		}
 	};
 
 	useEffect(() => {
@@ -44,9 +44,6 @@ const Dashboard = () => {
 
 	<div className="min-h-screen flex flex-col items-start justify-between gap-8 md:p-8 md:pb-0 p-4 pt-8 pb-0">
     <div className="space-y-5 w-full">
-      <div className="block sm:hidden ">
-				<Logger/>
-			</div>
     {/* Responsive Grid for Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-center w-full">
         <div className="flex items-center gap-3 shadow-card border border-blue-500 p-4 w-full rounded-md">

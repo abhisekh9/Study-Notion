@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { assets } from "../../assets/assets";
 import {useNavigate} from "react-router-dom"
+
 const SearchBar = ({data}) => {
 
 

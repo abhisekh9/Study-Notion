@@ -23,7 +23,7 @@ export const getCourseId = async(req,res)=>{
 
         const courseData = await Course.findById(id).populate({path:'educator'});
 
-        // Remove lecture Url if previewFrese is false
+        // Remove lecture Url if previewFre e is false
 
         courseData.courseContent.forEach(chapter => {
             chapter.chapterContent.forEach(lecture => {

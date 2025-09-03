@@ -5,7 +5,7 @@ import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { AppContext } from "../../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Logger from "../Logger";
+// import Logger from "../Logger";
 
 const Navbar = () => {
 
@@ -47,12 +47,13 @@ const Navbar = () => {
 			<img onClick={()=>navigate('/')}
 				src={assets.logo}
 				alt="Logo"
-				className="w-28 lg:w-32  cursor-pointer"
+				// className="w-28 lg:w-32  cursor-pointer"
+				className="w-14 lg:w-16 cursor-pointer"
 			/>
 			<div className="hidden md:flex items-center gap-5 text-gray-500">
-				<div className="flex items-center gap-5">
+				{/* <div className="flex items-center gap-5">
 					<Logger/>
-				</div>
+				</div> */}
 				<div className="flex items-center gap-5">
 					{user && (
 						<>

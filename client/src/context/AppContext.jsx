@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { dummyCourses } from "../assets/assets";
-import { data, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration"
 import {useAuth, useUser} from '@clerk/clerk-react'
 import axios from 'axios'
@@ -26,19 +25,19 @@ export const AppContextProvider = (props)=>{
 
     // fetch all courses 
     const fetchAllCourses = async ()=>{
-        setAllCourses(dummyCourses)
-        // try {
-        //     const {data} = await axios.get(backendUrl + '/api/course/all');
-        //     if(data.success)
-        //     {
-        //         setAllCourses(data.courses)
-        //     }else{
-        //         toast.error(data.message);
-        //     }
+        // setAllCourses(dummyCourses)
+        try {
+            const {data} = await axios.get(backendUrl + '/api/course/all');
+            if(data.success)
+            {
+                setAllCourses(data.courses)
+            }else{
+                toast.error(data.message);
+            }
             
-        // } catch (error) {
-        //     toast.error(error.message)
-        // }
+        } catch (error) {
+            toast.error(error.message)
+        }
     }
 
     // fetch user data
@@ -48,20 +47,20 @@ export const AppContextProvider = (props)=>{
             setIsEducator(true);
         }
 
-        // try {
-        //     const token = await getToken();
+        try {
+            const token = await getToken();
 
-        //     const {data} = await axios.get(backendUrl + '/api/user/data' , {headers: {Authorization: `Bearer ${token}`}})
+            const {data} = await axios.get(backendUrl + '/api/user/data' , {headers: {Authorization: `Bearer ${token}`}})
         
-        //     if(data.success){
-        //         setUserData(data.user)
-        //     }else{
-        //         toast.error(data.message)
-        //     }
+            if(data.success){
+                setUserData(data.user)
+            }else{
+                toast.error(data.message)
+            }
 
-        // } catch (error) {
-        //     toast.error(error.message)
-        // }
+        } catch (error) {
+            toast.error(error.message)
+        }
     }
 
     // Function to calculate average rating of course
@@ -107,24 +106,24 @@ export const AppContextProvider = (props)=>{
     // Fetch user enrolled courses
 
     const fetchUserEnrolledCourses = async () => {
-        setEnrolledCourses(dummyCourses)
-        // try {
-        //     const token = await getToken();
-        //     const response = await axios.get(backendUrl + "/api/user/enrolled-courses", {
-        //         headers: { Authorization: `Bearer ${token}` }
-        //     });
+        // setEnrolledCourses(dummyCourses)
+        try {
+            const token = await getToken();
+            const response = await axios.get(backendUrl + "/api/user/enrolled-courses", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
     
-        //     // console.log("Response:", response); // Debugging: Log full response
-    
-        //     if (response.data && response.data.enrolledCourses) {
-        //         setEnrolledCourses(response.data.enrolledCourses.reverse());
-        //     } else {
-        //         toast.error(response.data?.message || "No enrolled courses found.");
-        //     }
-        // } catch (error) {
-        //     console.error("Error fetching courses:", error);
-        //     toast.error(error.response?.data?.message || error.message);
-        // }
+            // console.log("Response:", response); // Debugging: Log full response
+            console.log(response);
+            if (response.data && response.data.enrolledCourses) {
+                setEnrolledCourses(response.data.enrolledCourses.reverse());
+            } else {
+                toast.error(response.data?.message || "No enrolled courses found.");
+            }
+        } catch (error) {
+            console.error("Error fetching courses:", error);
+            toast.error(error.response?.data?.message || error.message);
+        }
     };
     
     useEffect(()=>{

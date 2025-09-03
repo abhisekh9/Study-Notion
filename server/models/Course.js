@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 
 const lectureSchema = new mongoose.Schema({
     lectureId: {type: String, required: true},
-    // lectureId: {type: String},
     lectureTitle: {type: String, required: true},
     lectureDuration: {type: Number, required: true},
     // lectureurl: {type: String, required: true},
@@ -16,7 +15,6 @@ const lectureSchema = new mongoose.Schema({
 const chapterSchema = new mongoose.Schema({
     chapterId: {type: String, required: true},
     chapterOrder: {type: Number, required: true},
-    // chapterorder: {type: Number, required: true},
     chapterTitle: {type: String, required: true},
     chapterContent: [lectureSchema]
 },{_id: false});

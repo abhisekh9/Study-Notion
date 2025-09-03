@@ -1,8 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
+import connectCloudinary from './configs/cloudinary.js';
 import connectDB from './configs/mongodb.js';
-import { clerkWebhooks} from './controllers/webhooks.js';
+import { clerkWebhooks, stripeWebhooks} from './controllers/webhooks.js';
 import educatorRouter from './routes/educatorRoutes.js';
 import { clerkMiddleware } from '@clerk/express';
 import courseRouter from './routes/courseRoute.js';
@@ -14,7 +15,7 @@ const app = express();
 
 // connect to db
 await connectDB();
-// await connectCloudinay();
+await connectCloudinary();
 
 
 // middleware
@@ -28,7 +29,7 @@ app.post('/clerk', express.json(), clerkWebhooks)
 app.use('/api/educator', express.json(), educatorRouter);
 app.use('/api/course', express.json(), courseRouter);
 app.use('/api/user', express.json(), userRouter);
-// app.post('/stripe', express.raw({type: 'application/json'}), stripeWebhooks);
+app.post('/stripe', express.raw({type: 'application/json'}), stripeWebhooks);
 
 
 

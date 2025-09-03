@@ -40,16 +40,6 @@ export const addCourse = async (req, res) => {
         const parsedCourseData = JSON.parse(courseData);
         parsedCourseData.educator = educatorId;
 
-        // Ensure 'isPublished' defaults to true
-        // parsedCourseData.isPublished = parsedCourseData.isPublished ?? true;
-
-        // Ensure all lectures have required fields
-        // if (!parsedCourseData.courseContent?.every(chapter => 
-        //     chapter.chapterContent?.every(lecture => lecture.lectureId && lecture.lectureurl)
-        // )) {
-        //     return res.json({ success: false, message: "Lecture ID and URL are required in all chapters." });
-        // }
-
         // Upload image first
         const imageUpload = await cloudinary.uploader.upload(imageFile.path);
         parsedCourseData.courseThumbnail = imageUpload.secure_url;
