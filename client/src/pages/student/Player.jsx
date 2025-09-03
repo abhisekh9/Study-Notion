@@ -21,6 +21,13 @@ const Player = () => {
   const [initialRating, setInitialRating] = useState(0)
 
 
+
+  const getYouTubeId = (url) => {
+  	const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  		const match = url.match(regex);
+  		return match ? match[1] : null;
+  };
+
   const getCourseData = () =>{
     enrolledCourses.map((course)=>{
       if(course._id === courseId)
@@ -200,8 +207,11 @@ const Player = () => {
 	<div className="md:mt-10">
           {playerData ? (
             <div className="">
-              <YouTube videoId={playerData.lectureUrl.split('/').pop()}  iframeClassName="w-full aspect-video"/>
-              
+              {/* <YouTube videoId={playerData.lectureUrl.split('/').pop()}  iframeClassName="w-full aspect-video"/> */}
+              <YouTube 
+				videoId={getYouTubeId(playerData.lectureUrl)}  
+				iframeClassName="w-full aspect-video"
+			  />
               <div className="flex justify-between items-center mt-1">
                 <p>{playerData.chapter}.{playerData.lecture} {playerData.lectureTitle} </p>
                 <button onClick={() => markLectureAsCompleted(playerData.lectureId)} className="text-blue-600">{progressData && progressData.lectureCompleted.includes(playerData.lectureId) ? 'Completed' : 'Mark As Complete'}</button>
